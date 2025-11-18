@@ -1,15 +1,16 @@
-// @ts-check
+// @ts-nocheck
 import { test, expect } from "@playwright/test";
 import { faker } from "@faker-js/faker";
 import { createUser } from "../../support/factories/user.js";
-import { registerService } from "../../support/services/register.js";
+import { authService } from "../../support/services/auth.js";
 
 test.describe("POST/auth/register", () => {
   
 // Hooks para rodar primeito
-  let register;
+  let auth;
+
   test.beforeEach(({request}) => {
-    register = registerService(request);
+    auth = authService(request);
   });
 
 
@@ -19,7 +20,7 @@ test.describe("POST/auth/register", () => {
     const user = createUser();
 
     // Envia a requisição POST para registrar o usuário
-    const response = await register.newRegister(user);
+    const response = await auth.newRegister(user);
 
     // Verifica se o status da resposta é 201 (Created)
     expect(response.status()).toBe(201);
@@ -39,16 +40,16 @@ test.describe("POST/auth/register", () => {
   test("Não Deve registrar um novo usuário com email já em uso", async ({
     request,
   }) => {
-    const register = registerService(request);
+   
     const user = createUser();
 
     // Envia a requisição POST para registrar o usuário
-    const preConditions = await register.newRegister(user);
+    const preConditions = await auth.newRegister(user);
 
     // Verifica se o status da resposta é 201
     expect(preConditions.status()).toBe(201);
 
-    const response = await register.newRegister(user);
+    const response = await auth.newRegister(user);
 
     // Verifica se o status da resposta é 400
     expect(response.status()).toBe(400);
@@ -65,7 +66,7 @@ test.describe("POST/auth/register", () => {
     request,
   }) => {
 
-    const register = registerService(request);
+   
 
     //Massa de teste
     const user = {
@@ -74,7 +75,7 @@ test.describe("POST/auth/register", () => {
       password: "luc123",
     };
 
-    const response = await register.newRegister(user);
+    const response = await auth.newRegister(user);
 
     // Verifica se o status da resposta é 400
     expect(response.status()).toBe(400);
@@ -91,7 +92,7 @@ test.describe("POST/auth/register", () => {
     request,
   }) => {
 
-    const register = registerService(request);
+   
 
     //Massa de teste
     const user = {
@@ -100,7 +101,7 @@ test.describe("POST/auth/register", () => {
       password: "",
     };
 
-    const response = await register.newRegister(user);
+    const response = await auth.newRegister(user);
 
     // Verifica se o status da resposta é 400
     expect(response.status()).toBe(400);
@@ -117,7 +118,7 @@ test.describe("POST/auth/register", () => {
     request,
   }) => {
 
-    const register = registerService(request);
+   
 
     //Massa de teste
     const user = {
@@ -126,7 +127,7 @@ test.describe("POST/auth/register", () => {
       password: "luc123",
     };
 
-    const response = await register.newRegister(user);
+    const response = await auth.newRegister(user);
 
     // Verifica se o status da resposta é 400
     expect(response.status()).toBe(400);
@@ -143,7 +144,7 @@ test.describe("POST/auth/register", () => {
     request,
   }) => {
 
-    const register = registerService(request);
+   
 
     //Massa de teste
     const user = {
@@ -151,7 +152,7 @@ test.describe("POST/auth/register", () => {
       password: "luc123",
     };
 
-    const response = await register.newRegister(user);
+    const response = await auth.newRegister(user);
 
     // Verifica se o status da resposta é 400
     expect(response.status()).toBe(400);
