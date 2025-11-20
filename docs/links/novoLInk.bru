@@ -6,10 +6,22 @@ meta {
 
 post {
   url: http://localhost:3333/api/links
-  body: none
-  auth: inherit
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDFLOVlLTjY4MjVDN1RGWjc3R0syRDk3Q0siLCJleHAiOjE3NjM2ODQ1ODMsImlhdCI6MTc2MzU5ODE4M30.2IbcGvqdSLFvhOlRnywtX-3-sFOIRoWYjIOaCdw_OGc
+}
+
+body:json {
+  {
+    "original_url": "lucas@deve",
+    "title": "Meu instagran"
+  }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

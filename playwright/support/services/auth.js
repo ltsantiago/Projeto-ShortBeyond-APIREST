@@ -1,3 +1,5 @@
+
+
 export const authService = (request) => {
 
   const newRegister = async (user) => {
@@ -15,9 +17,17 @@ export const authService = (request) => {
     });
   };
 
+  const getToken = async (user) => {
+    // Retorna o token de autenticação
+    const response =  await login(user)
+    const body = await response.json()
+    return body.data.token
+  }
+
 
   return {
     newRegister,
-    login
+    login,
+    getToken
   };
 };
