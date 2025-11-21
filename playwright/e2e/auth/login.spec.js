@@ -1,16 +1,10 @@
-// @ts-nocheck
-import { test, expect } from "@playwright/test";
-import { authService } from "../../support/services/auth";
-import { createUser } from "../../support/factories/user";
+
+import { test, expect } from "../../support/fixtures";
+import { createUser } from "../../support/factories/user.js";
 
 test.describe("POST/auth/login", () => {
-  let auth;
-
-  test.beforeEach(({ request }) => {
-    auth = authService(request);
-  });
-
-  test("Deve autenticar um usuário com sucesso", async () => {
+ 
+  test("Deve autenticar um usuário com sucesso", async (auth) => {
     //Gera massa de dados
     const user = createUser();
 
@@ -36,7 +30,7 @@ test.describe("POST/auth/login", () => {
     expect(responseBody.data.user).not.toHaveProperty("password");
   });
 
-  test(" Não deve logar com a senha incorreta", async () => {
+  test(" Não deve logar com a senha incorreta", async (auth) => {
     //Gera massa de dados
     const user = createUser();
 
@@ -54,7 +48,7 @@ test.describe("POST/auth/login", () => {
     expect(responseBody).toHaveProperty("message", "Credenciais inválidas");
   });
 
-  test(" Não deve logar com a email que não foi cadastrado", async () => {
+  test(" Não deve logar com a email que não foi cadastrado", async (auth) => {
     const user = {
       email: "404@lucasdev.com",
       password: "luc123",
@@ -69,7 +63,7 @@ test.describe("POST/auth/login", () => {
     expect(responseBody).toHaveProperty("message", "Credenciais inválidas");
   });
 
-  test(" Não deve logar com campo email vazio", async () => {
+  test(" Não deve logar com campo email vazio", async (auth) => {
     const user = {
       email: "",
       password: "luc123",
@@ -87,7 +81,7 @@ test.describe("POST/auth/login", () => {
     );
   });
 
-  test(" Não deve logar com campo senha vazio", async () => {
+  test(" Não deve logar com campo senha vazio", async (auth) => {
     const user = {
       email: "lucas@lucas.dev.com",
       password: "",

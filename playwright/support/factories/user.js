@@ -1,4 +1,4 @@
-import { fa, faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 
 //Criação de massa de dados de usuário
 export const createUser = () => {
@@ -12,7 +12,7 @@ export const createUser = () => {
   };
 };
 
-export const getUserWithLInk = () => {
+export const getUserWithLink = () => {
   const firstName = faker.person.firstName();
   const lastName = faker.person.lastName();
 
